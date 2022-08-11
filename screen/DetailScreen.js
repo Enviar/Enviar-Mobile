@@ -40,7 +40,7 @@ export default function DetailScreen({ route }) {
             const value = await AsyncStorage.getItem('access_token')
             if (value !== null) {
                 try {
-                    const dataResi = await axios.get(`https://3181-139-194-213-73.ap.ngrok.io/status/${id}`,
+                    const dataResi = await axios.get(`https://e6fc-139-194-96-49.ap.ngrok.io/status/${id}`,
                         {
                             headers: {
                                 access_token: value
@@ -66,7 +66,7 @@ export default function DetailScreen({ route }) {
             const value = await AsyncStorage.getItem('access_token')
             if (value != null) {
                 try {
-                    const response = await axios.post(`https://3181-139-194-213-73.ap.ngrok.io/status`,
+                    const response = await axios.post(`https://e6fc-139-194-96-49.ap.ngrok.io/status`,
                         {
                             ProductId: product.ProductId,
                             CityId: product.Product.recipientCity,

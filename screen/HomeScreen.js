@@ -22,7 +22,7 @@ export default function HomeScreen({ route }) {
             setLocation(dataLoc)
             if (value !== null) {
                 try {
-                    const dataResi = await axios.get(`https://3181-139-194-213-73.ap.ngrok.io/status`, {
+                    const dataResi = await axios.get(`https://e6fc-139-194-96-49.ap.ngrok.io/status`, {
                         headers: {
                             access_token: value
                         }
@@ -42,6 +42,7 @@ export default function HomeScreen({ route }) {
                     }
 
                     setProduct(dataResi.data)
+                    // console.log(dataResi.data);
                     setLoading(false)
                 }
                 catch (err) {
@@ -59,7 +60,7 @@ export default function HomeScreen({ route }) {
             const value = await AsyncStorage.getItem("access_token")
             if (value != null) {
                 try {
-                    const response = await axios.post(`https://3181-139-194-213-73.ap.ngrok.io/status`,
+                    const response = await axios.post(`https://e6fc-139-194-96-49.ap.ngrok.io/status`,
                         {
                             ProductId: productid,
                             CityId: cityid,
@@ -123,21 +124,22 @@ export default function HomeScreen({ route }) {
                     }}
 
                 >
-                    <SafeAreaView style={{ display: 'flex', flexDirection: 'row', marginTop: 5 }}>
-                        <View>
+                    <SafeAreaView style={{ marginTop: 5, flexDirection: 'row' }}>
+                        <View style={{ flex: 1 / 3 }}>
 
                         </View>
-                        <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
+                        <View style={{ flex: 1 / 2.7, alignItems: 'center', justifyContent: 'center' }}>
                             <Text style={{ color: 'white', fontSize: 12, paddingLeft: 3, }}>Current Location</Text>
                             <View style={{ display: 'flex', flexDirection: 'row', marginTop: 5 }}>
-                                <Ionicons name="ios-locate" size={18} color="#68351A" style={{
+                                <Ionicons name="ios-locate" size={15} color="#68351A" style={{
                                     paddingTop: 4, paddingRight: 3
                                 }} />
-                                <Text style={{ color: 'white', fontSize: 20 }}>{location}</Text>
+                                <Text style={{ color: 'white', fontSize: 17 }}>{location}</Text>
 
                             </View>
                         </View>
-                        <View style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
+                        <View style={{ flex: 1 / 3.6, alignItems: 'flex-end' }}>
                             <Image source={require('../assets/avatar_pakde.png')} />
                         </View>
                     </SafeAreaView>
@@ -148,7 +150,7 @@ export default function HomeScreen({ route }) {
                             <Text style={{ fontSize: 26, marginTop: 12, marginBottom: 12, marginLeft: 7 }}>Package List</Text>
                             <FlatList
                                 data={product}
-                                renderItem={({ item }) => <CardComponent list={item[0]} isSend={sended} funcSend={handleSend} />}
+                                renderItem={({ item, no }) => <CardComponent number={product.indexOf(item)} list={item[0]} isSend={sended} funcSend={handleSend} />}
                                 numColumns={1}
                                 keyExtractor={(item, num) => num}
                                 style={{ marginLeft: 10, marginRight: 10 }}
