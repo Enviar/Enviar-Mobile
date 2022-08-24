@@ -223,7 +223,10 @@ export default function DetailScreen({ route }) {
                                 />
                                 <View style={{ flexDirection: 'row', marginTop: 20 }}>
                                     <View style={{ flex: 2 / 3 }}>
-                                        {image && <Image source={{ uri: image }} style={{ width: 230, height: 230 }} />}
+                                        {image ? <Image source={{ uri: image }} style={{ width: 230, height: 230 }} /> :
+                                            <View style={{ width: 230, height: 230, backgroundColor: 'black' }}>
+                                            </View>
+                                        }
 
                                     </View>
                                     <View style={{ flex: 1 / 3, justifyContent: 'center', alignItems: 'center' }}>
@@ -236,7 +239,13 @@ export default function DetailScreen({ route }) {
                                 </View>
                             </View>
                             {/* <Button title='Submit upload' onPress={uploadImage}></Button> */}
-                            {product.notes == `sedang dikirim` ? <Button title='Selesai' onPress={uploadImage}></Button> : null}
+                            {/* {product.notes == `sedang dikirim` ? <Button title='Selesai' onPress={uploadImage}></Button> : null} */}
+                            <View style={{ justifyContent: 'flex-end', marginTop: 40, alignItems: 'center' }} >
+                                <TouchableOpacity onPress={uploadImage} style={{ alignItems: 'center', marginTop: 30, borderWidth: 0.2, borderRadius: 14, backgroundColor: '#A1B043', width: 350, height: 53, }}>
+                                    <Text style={{ fontSize: 20, padding: 7, color: 'black', paddingTop: 14 }}>Finish Delivery</Text>
+                                </TouchableOpacity>
+
+                            </View>
                         </View>
                         : null
                 }
