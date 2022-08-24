@@ -28,8 +28,8 @@ export default function RegisterScreen() {
     const handleLogin = async () => {
         // console.log(dataLogin.password);
         try {
-            //https://e6fc-139-194-96-49.ap.ngrok.io
-            const response = await axios.post(`https://e6fc-139-194-96-49.ap.ngrok.io/login`, {
+            //https://enviar-be.herokuapp.com
+            const response = await axios.post(`https://enviar-be.herokuapp.com/login`, {
                 email: dataLogin.email,
                 password: dataLogin.password
             })
