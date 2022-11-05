@@ -13,12 +13,12 @@ export default function HomeScreen({ route }) {
     const [location, setLocation] = useState("")
     const [finishSend, setFinishSend] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
-    // console.log(route.params, `route`);
+
     const scaleView = useRef(new Animated.Value(1)).current
     const offsetView = useRef(new Animated.Value(0)).current
     const getData = async () => {
         try {
-            // console.log(`lalalayeyeyeee`);
+            
             const value = await AsyncStorage.getItem('access_token')
             const dataLoc = await AsyncStorage.getItem('city')
             setLocation(dataLoc)
@@ -31,9 +31,7 @@ export default function HomeScreen({ route }) {
                     })
                     let count = 0
                     dataResi.data.forEach(x => {
-                        // console.log(x[0].notes);
                         if (x[0].notes == `sedang dikirim`) {
-                            // console.log(`oi`);
                             setSended(true)
                         } else {
                             count++
@@ -44,7 +42,6 @@ export default function HomeScreen({ route }) {
                     }
 
                     setProduct(dataResi.data)
-                    // console.log(dataResi.data);
                     setLoading(false)
                 }
                 catch (err) {
@@ -74,7 +71,6 @@ export default function HomeScreen({ route }) {
                         }
                     })
                     setSended(true)
-                    // console.log(response);
                 }
                 catch (err) {
                     console.log(err);

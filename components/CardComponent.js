@@ -4,7 +4,6 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 export default function CardComponent({ list, isSend, funcSend, number }) {
     const navigation = useNavigation()
     const color = ['#C82A2A', '#A1B043', '#C82A2A']
-    // console.log(number, `--`);
     if (list.notes == `sedang dikirim`) {
 
         return (
