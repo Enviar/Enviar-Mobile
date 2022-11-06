@@ -21,14 +21,12 @@ export default function RegisterScreen() {
         newInput[key] = val
         setDataLogin(newInput)
     }
-    // useEffect(() => {
-    //     console.log(Platform.OS);
-    // }, [])
+  
 
     const handleLogin = async () => {
-        // console.log(dataLogin.password);
+       
         try {
-            //https://enviar-be.herokuapp.com
+ 
             const response = await axios.post(`https://enviar-be.herokuapp.com/login`, {
                 email: dataLogin.email,
                 password: dataLogin.password
@@ -36,13 +34,13 @@ export default function RegisterScreen() {
 
             await AsyncStorage.setItem('access_token', response.data.access_token)
             await AsyncStorage.setItem('city', response.data.Courier_loc)
-            console.log(response.data.access_token, `-----------`);
+
             navigation.navigate('Home')
         }
         catch (err) {
-            console.log(err);
+           
             Alert.alert(err.response.data.error.message)
-            console.log(err.response.data.error.message, `xxxxx`);
+        
         }
         finally {
             setDataLogin({
@@ -55,13 +53,13 @@ export default function RegisterScreen() {
 
 
     return (
-        // <SafeAreaView style={styles.container}>
+     
         <KeyboardAvoidingView
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
             enabled
             style={styles.container}
         >
-            {/* <View style={styles.inner}> */}
+         
 
 
             <ImageBackground
@@ -139,7 +137,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        // justifyContent: 'center',
+     
     },
     logo: {
         fontSize: 49,
