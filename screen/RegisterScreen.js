@@ -14,19 +14,18 @@ export default function RegisterScreen() {
     const navigation = useNavigation()
     const handleInputChange = (key, val) => {
 
-        // // console.log(e.target);
+
         const newInput = {
             ...dataLogin
         }
         newInput[key] = val
         setDataLogin(newInput)
     }
-  
 
     const handleLogin = async () => {
-       
-        try {
  
+        try {
+      
             const response = await axios.post(`https://enviar-be.herokuapp.com/login`, {
                 email: dataLogin.email,
                 password: dataLogin.password
@@ -41,6 +40,12 @@ export default function RegisterScreen() {
            
             Alert.alert(err.response.data.error.message)
         
+
+   
+            navigation.navigate('Home')
+        }
+        catch (err) {
+            Alert.alert(err.response.data.error.message)
         }
         finally {
             setDataLogin({

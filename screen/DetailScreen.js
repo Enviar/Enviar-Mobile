@@ -26,8 +26,6 @@ export default function DetailScreen({ route }) {
             quality: 1,
         });
 
-        console.log(result);
-
         if (!result.cancelled) {
             setImage(result.uri);
         }
@@ -46,7 +44,6 @@ export default function DetailScreen({ route }) {
                                 access_token: value
                             }
                         })
-                    // console.log(dataResi.data.data);
                     setProduct(dataResi.data.data)
                     setLoading(false)
                 }
@@ -61,61 +58,68 @@ export default function DetailScreen({ route }) {
     }
 
     const handleFinish = async (photo) => {
-        try {
-            console.log(photo, `-`);
-            const value = await AsyncStorage.getItem('access_token')
-            if (value != null) {
-                try {
-                    const response = await axios.post(`https://enviar-be.herokuapp.com/status`,
-                        {
-                            ProductId: product.ProductId,
-                            CityId: product.Product.recipientCity,
-                            name: name,
-                            notes: `selesai`,
-                            photo: photo
-                        }, {
-                        headers: {
-                            access_token: value
-                        }
-                    })
-                    console.log(`sukses semua`);
-                    navigation.navigate('Home')
-                }
-                catch (err) {
-                    console.log(err);
+        if(!photo || !name){
+            return Alert.alert("masukkan semua field")
+        } else {
+            try {
+                const value = await AsyncStorage.getItem('access_token')
+                if (value != null) {
+                    try {
+                        const response = await axios.post(`https://enviar-be.herokuapp.com/status`,
+                            {
+                                ProductId: product.ProductId,
+                                CityId: product.Product.recipientCity,
+                                name: name,
+                                notes: `selesai`,
+                                photo: photo
+                            }, {
+                            headers: {
+                                access_token: value
+                            }
+                        })
+                     
+                        navigation.navigate('Home')
+                    }
+                    catch (err) {
+                        console.log(err);
+                    }
                 }
             }
+            catch (err) {
+                console.log(err);
+            }
         }
-        catch (err) {
-            console.log(err);
-        }
+       
     }
 
     const uploadImage = async () => {
-        // console.log(name);
-        setUploading(true)
+        if(!name){
+            return Alert.alert("Masukkan nama penerima")
+        } else if(!image){
+            return Alert.alert("Masukkan Bukti foto")
+        } 
+        else {
+            setUploading(true)
 
-        const response = await fetch(image)
-        // console.log(response);
-        const blob = await response.blob()
-        const filename = image.substring(image.lastIndexOf('/') + 1)
-        var ref = firebase.storage().ref().child(filename).put(blob)
-
-        try {
-            await ref
-            console.log(filename, `filename`);
-            handleFinish(filename)
-            Alert.alert(`Photo uploaded..!`)
-        } catch (err) {
-            console.log(err);
-        } finally {
-
-            // console.log(`sukses lokal`);
-            setUploading(false)
-            // console.log(`sukses 2`);
-            // console.log(`sukses 3`);
-            setImage(null)
+      
+            const response = await fetch(image)
+            const blob = await response.blob()
+            const filename = image.substring(image.lastIndexOf('/') + 1)
+            var ref = firebase.storage().ref().child(filename).put(blob)
+    
+            try {
+                await ref
+                handleFinish(filename)
+                Alert.alert(`Sukses Update data..!`)
+            } catch (err) {
+               Alert.alert(err)
+            } finally {
+                setUploading(false)
+                setImage(null)
+            }
         }
+
+        
     }
 
     useEffect(() => {

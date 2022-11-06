@@ -11,8 +11,8 @@ export default function HomeScreen({ route }) {
     const [sended, setSended] = useState(false)
     const [loading, setLoading] = useState(true)
     const [location, setLocation] = useState("")
-    const [finishSend, setFinishSend] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
+
     const scaleView = useRef(new Animated.Value(1)).current
     const offsetView = useRef(new Animated.Value(0)).current
     const getData = async () => {
@@ -30,7 +30,7 @@ export default function HomeScreen({ route }) {
                     let count = 0
                     dataResi.data.forEach(x => {
                         if (x[0].notes == `sedang dikirim`) {
-                         
+
                             setSended(true)
                         } else {
                             count++
@@ -70,7 +70,6 @@ export default function HomeScreen({ route }) {
                         }
                     })
                     setSended(true)
-                    // console.log(response);
                 }
                 catch (err) {
                     console.log(err);
@@ -89,8 +88,7 @@ export default function HomeScreen({ route }) {
         getData()
 
 
-
-    }, [sended, finishSend, isFocused])
+    }, [sended, isFocused])
 
     if (loading) {
         return (
