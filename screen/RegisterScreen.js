@@ -14,18 +14,17 @@ export default function RegisterScreen() {
     const navigation = useNavigation()
     const handleInputChange = (key, val) => {
 
-
         const newInput = {
             ...dataLogin
         }
         newInput[key] = val
         setDataLogin(newInput)
     }
- 
+
     const handleLogin = async () => {
  
         try {
-            
+      
             const response = await axios.post(`https://enviar-be.herokuapp.com/login`, {
                 email: dataLogin.email,
                 password: dataLogin.password
@@ -33,11 +32,14 @@ export default function RegisterScreen() {
 
             await AsyncStorage.setItem('access_token', response.data.access_token)
             await AsyncStorage.setItem('city', response.data.Courier_loc)
-   
+
             navigation.navigate('Home')
         }
         catch (err) {
+           
             Alert.alert(err.response.data.error.message)
+   
+            navigation.navigate('Home')
         }
         finally {
             setDataLogin({
@@ -50,13 +52,13 @@ export default function RegisterScreen() {
 
 
     return (
-        // <SafeAreaView style={styles.container}>
+     
         <KeyboardAvoidingView
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
             enabled
             style={styles.container}
         >
-            {/* <View style={styles.inner}> */}
+         
 
 
             <ImageBackground
@@ -134,7 +136,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        // justifyContent: 'center',
+     
     },
     logo: {
         fontSize: 49,
