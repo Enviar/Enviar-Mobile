@@ -11,7 +11,6 @@ export default function HomeScreen({ route }) {
     const [sended, setSended] = useState(false)
     const [loading, setLoading] = useState(true)
     const [location, setLocation] = useState("")
-    const [finishSend, setFinishSend] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
 
     const scaleView = useRef(new Animated.Value(1)).current
@@ -89,8 +88,7 @@ export default function HomeScreen({ route }) {
         getData()
 
 
-
-    }, [sended, finishSend, isFocused])
+    }, [sended, isFocused])
 
     if (loading) {
         return (
