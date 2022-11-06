@@ -1,10 +1,8 @@
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, ActivityIndicator, TextInput, Button, Modal, Alert, FlatList } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { StyleSheet, Text, View,TouchableOpacity, Image, ActivityIndicator, TextInput,  Alert, Linking } from 'react-native'
 import { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import axios from 'axios'
-// import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import * as ImagePicker from 'expo-image-picker';
 import { firebase } from '../firebase/config'
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -12,7 +10,7 @@ export default function DetailScreen({ route }) {
     const [loading, setLoading] = useState(true)
     const [product, setProduct] = useState({})
     const [image, setImage] = useState(null);
-    const [uploading, setUploading] = useState(false)
+    const [uploading, setUploading] = useState(false) 
     const [name, setName] = useState("")
     const id = route.params.id
     const navigation = useNavigation()
@@ -122,6 +120,16 @@ export default function DetailScreen({ route }) {
         
     }
 
+
+
+    const renderStatus = (status) =>{
+        if(status === "siap_dikirim"){
+            return "Siap Dikrim"
+        } else if (status === "sedang dikirim"){
+            return "Dalam Perjalanan"
+        }
+    }
+
     useEffect(() => {
         getDataId()
     }, [])
@@ -146,15 +154,15 @@ export default function DetailScreen({ route }) {
         return (
             <>
 
-                <View style={{ marginHorizontal: 25, flexDirection: 'row' }}>
+                <View style={{ marginHorizontal: 25, flexDirection: 'row', marginTop: 20 }}>
                     <View style={{ flex: 1 / 2 }}>
-                        <Text style={{ fontSize: 17, fontWeight: '400' }}>Receipt Number:</Text>
+                        <Text style={{ fontSize: 18, fontWeight: '500' }}>Receipt Number:</Text>
                     </View>
                     <View style={{ flex: 1 / 2 }}>
-                        <Text style={{ fontSize: 17, fontWeight: '400' }}>{product.Product.receiptNumber}</Text>
+                        <Text style={{ fontSize: 18, fontWeight: '500', letterSpacing:1 }}>{product.Product.receiptNumber}</Text>
                     </View>
                 </View>
-                <View style={{ marginHorizontal: 25, flexDirection: 'row' }}>
+                <View style={{ marginHorizontal: 25, flexDirection: 'row', marginTop:5 }}>
                     <View style={{ flex: 1 / 2 }}>
                         <Text style={{ fontSize: 17, fontWeight: '400' }}>Recipient Name:</Text>
                     </View>
@@ -162,23 +170,23 @@ export default function DetailScreen({ route }) {
                         <Text style={{ fontSize: 17, fontWeight: '400' }}>{product.Product.recipientName}</Text>
                     </View>
                 </View>
-                <View style={{ marginHorizontal: 25, flexDirection: 'row' }}>
+                <View style={{ marginHorizontal: 25, flexDirection: 'row', marginTop:5 }}>
                     <View style={{ flex: 1 / 2 }}>
                         <Text style={{ fontSize: 17, fontWeight: '400' }}>Recipient Phone:</Text>
                     </View>
                     <View style={{ flex: 1 / 2 }}>
-                        <Text style={{ fontSize: 17, fontWeight: '400' }}>{product.Product.recipientPhone}</Text>
+                        <Text style={{ fontSize: 17, fontWeight: '400', marginRight:3 }}>{product.Product.recipientPhone} <Ionicons onPress={()=> Linking.openURL(`whatsapp://send?text=hello ${product.Product.recipientName}, im your Enviar's courier. Is your address ${product.Product.recipientAddress} are correct? &phone=${product.Product.recipientPhone}`)} name='logo-whatsapp' color="#A1B043" size={22} /></Text>
                     </View>
                 </View>
-                <View style={{ marginHorizontal: 25, flexDirection: 'row' }}>
+                <View style={{ marginHorizontal: 25, flexDirection: 'row', marginTop:5 }}>
                     <View style={{ flex: 1 / 2 }}>
                         <Text style={{ fontSize: 17, fontWeight: '400' }}>Recipient Address:</Text>
                     </View>
                     <View style={{ flex: 1 / 2 }}>
-                        <Text style={{ fontSize: 17, fontWeight: '400' }}>{product.Product.recipientAddress}</Text>
+                        <Text style={{ fontSize: 17, fontWeight: '400' }}>{product.Product.recipientAddress} </Text>
                     </View>
                 </View>
-                <View style={{ marginHorizontal: 25, flexDirection: 'row' }}>
+                <View style={{ marginHorizontal: 25, flexDirection: 'row', marginTop:5 }}>
                     <View style={{ flex: 1 / 2 }}>
                         <Text style={{ fontSize: 17, fontWeight: '400' }}>Service Type:</Text>
                     </View>
@@ -186,7 +194,7 @@ export default function DetailScreen({ route }) {
                         <Text style={{ fontSize: 17, fontWeight: '400' }}>{product.Product.typeService}</Text>
                     </View>
                 </View>
-                <View style={{ marginHorizontal: 25, flexDirection: 'row' }}>
+                <View style={{ marginHorizontal: 25, flexDirection: 'row', marginTop:5 }}>
                     <View style={{ flex: 1 / 2 }}>
                         <Text style={{ fontSize: 17, fontWeight: '400' }}>Package Type:</Text>
                     </View>
@@ -194,7 +202,7 @@ export default function DetailScreen({ route }) {
                         <Text style={{ fontSize: 17, fontWeight: '400' }}>{product.Product.typeProduct}</Text>
                     </View>
                 </View>
-                <View style={{ marginHorizontal: 25, flexDirection: 'row' }}>
+                <View style={{ marginHorizontal: 25, flexDirection: 'row', marginTop:5 }}>
                     <View style={{ flex: 1 / 2 }}>
                         <Text style={{ fontSize: 17, fontWeight: '400' }}>Payment Type:</Text>
                     </View>
@@ -202,12 +210,12 @@ export default function DetailScreen({ route }) {
                         <Text style={{ fontSize: 17, fontWeight: '400' }}>Cash</Text>
                     </View>
                 </View>
-                <View style={{ marginHorizontal: 25, flexDirection: 'row' }}>
+                <View style={{ marginHorizontal: 25, flexDirection: 'row', marginTop:5 }}>
                     <View style={{ flex: 1 / 2 }}>
                         <Text style={{ fontSize: 17, fontWeight: '400' }}>Status:</Text>
                     </View>
                     <View style={{ flex: 1 / 2 }}>
-                        <Text style={{ fontSize: 17, fontWeight: '400' }}>{product.notes}</Text>
+                        <Text style={{ fontSize: 17, fontWeight: '400' }}>{ renderStatus(product.notes) }</Text>
 
                     </View>
                 </View>
@@ -245,8 +253,8 @@ export default function DetailScreen({ route }) {
                             {/* <Button title='Submit upload' onPress={uploadImage}></Button> */}
                             {/* {product.notes == `sedang dikirim` ? <Button title='Selesai' onPress={uploadImage}></Button> : null} */}
                             <View style={{ justifyContent: 'flex-end', marginTop: 40, alignItems: 'center' }} >
-                                <TouchableOpacity onPress={uploadImage} style={{ alignItems: 'center', marginTop: 30, borderWidth: 0.2, borderRadius: 14, backgroundColor: '#A1B043', width: 350, height: 53, }}>
-                                    <Text style={{ fontSize: 20, padding: 7, color: 'black', paddingTop: 14 }}>Finish Delivery</Text>
+                                <TouchableOpacity disabled={uploading? true: false}  onPress={uploadImage} style={{ alignItems: 'center', marginTop: 30, borderWidth: 0.2, borderRadius: 14, backgroundColor: '#A1B043', width: 350, height: 53, }}>
+                                    <Text style={{ fontSize: 20, padding: 7, color: 'black', paddingTop: 14 }}>{uploading? "Please Wait ..." : "Finish Delivery"}</Text>
                                 </TouchableOpacity>
 
                             </View>

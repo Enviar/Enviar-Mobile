@@ -14,7 +14,6 @@ export default function RegisterScreen() {
     const navigation = useNavigation()
     const handleInputChange = (key, val) => {
 
-
         const newInput = {
             ...dataLogin
         }
@@ -39,13 +38,8 @@ export default function RegisterScreen() {
         catch (err) {
            
             Alert.alert(err.response.data.error.message)
-        
-
    
             navigation.navigate('Home')
-        }
-        catch (err) {
-            Alert.alert(err.response.data.error.message)
         }
         finally {
             setDataLogin({

@@ -3,10 +3,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import React, { useEffect, useRef, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import CardComponent from '../components/CardComponent'
 import Ionicons from '@expo/vector-icons/Ionicons';
 export default function HomeScreen({ route }) {
+    const navigation = useNavigation()
     const [product, setProduct] = useState([])
     const [sended, setSended] = useState(false)
     const [loading, setLoading] = useState(true)
@@ -82,6 +83,10 @@ export default function HomeScreen({ route }) {
     }
 
     const isFocused = useIsFocused()
+
+    const logout = () =>{
+        navigation.navigate('Register')
+    }
 
     useEffect(() => {
 
@@ -185,7 +190,7 @@ export default function HomeScreen({ route }) {
                                 <Ionicons name="log-out-outline" size={20} color="#000000" style={{
                                     paddingTop: 4, paddingRight: 3
                                 }} />
-                                <Text style={{ color: 'black', fontSize: 20 }}>Logout</Text>
+                                <Text onPress={()=>logout()} style={{ color: 'black', fontSize: 20 }}>Logout</Text>
 
                             </View>
 
@@ -201,7 +206,7 @@ export default function HomeScreen({ route }) {
 
 const styles = StyleSheet.create({
     pages: {
-        // position: 'absolute',
+
         left: 0,
         right: 0,
         top: 0,
