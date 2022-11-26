@@ -62,7 +62,7 @@ export default function RegisterScreen() {
 
 
             <ImageBackground
-                source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1J29QBK0XjIECauKWIB_R8VAnNeMDvXvwWA&usqp=CAU' }}
+                source={{ uri: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80' }}
                 style={{
                     height: Dimensions.get('window').height / 2.5,
                     width: Dimensions.get('window').width,
@@ -70,12 +70,10 @@ export default function RegisterScreen() {
                 }}
 
             >
-                <View>
+                {/* <View>
                     <Icon name='home' style={{ color: 'black', fontSize: 100 }} />
                     <Text style={styles.logo}>ENVIAR</Text>
-
-
-                </View>
+                </View> */}
             </ImageBackground>
 
             <View style={styles.bottomView}>
