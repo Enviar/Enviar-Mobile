@@ -8,7 +8,7 @@ import { Icon } from 'native-base'
 
 export default function RegisterScreen() {
     const [dataLogin, setDataLogin] = useState({
-        email: `kurir11@gmail.com`,
+        email: `dickykurniawan69@gmail.com`,
         password: '123456'
     })
     const navigation = useNavigation()
@@ -39,7 +39,6 @@ export default function RegisterScreen() {
            
             Alert.alert(err.response.data.error.message)
    
-            navigation.navigate('Home')
         }
         finally {
             setDataLogin({
